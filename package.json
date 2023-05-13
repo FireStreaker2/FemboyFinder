@@ -1,0 +1,28 @@
+{
+  "name": "femboyfinder",
+  "version": "1.0.0",
+  "description": "Simple image querier using express and dabooru.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FireStreaker2/FemboyFinder.git"
+  },
+  "keywords": [
+    "firestreaker2",
+    "express",
+    "femboy"
+  ],
+  "author": "FireStreaker2",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/FireStreaker2/FemboyFinder/issues"
+  },
+  "homepage": "https://github.com/FireStreaker2/FemboyFinder#readme",
+  "dependencies": {
+    "axios": "^1.4.0",
+    "express": "^4.18.2"
+  }
+}
