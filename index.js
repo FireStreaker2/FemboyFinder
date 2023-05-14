@@ -6,7 +6,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.get("/", (req, res) => {
-    res.send("Syntax: url/<query> ex. localhost:3000/astolfo");
+    res.send(`<script>window.location.href = "https://github.com/FireStreaker2/FemboyFinder"</script>`);
 });
 
 app.get("/:value", (req, res) => {
@@ -29,48 +29,48 @@ app.get("/:value", (req, res) => {
                 }
             }
 
-            console.log(originalUrls);
+        const index = Math.floor(Math.random() * originalUrls.length);
+        const randomUrl = originalUrls[index];
 
-            const index = Math.floor(Math.random() * originalUrls.length);
-            const randomUrl = originalUrls[index];
-
-            console.log(randomUrl)
+        // console.log(randomUrl)
             
-            res.send(`
-                <!DOCTYPE html>
-                <html>
-                <head>
-                    <meta charset="UTF-8">
-                    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <meta name="description" content="Femboy Finder">
-                    <meta name="keywords" content="FireStreaker2" />
-                    <meta name=”copyright” content=”FireStreaker2”>
-                    <meta property="og:title" content="Femboy Finder" />
-                    <meta property="og:type" content="website" />
-                    <meta property="og:url" content="https://github.com/FireStreaker2/FemboyFinder" />
-                    <meta property="og:image" content="${randomUrl}" />
-                    <meta property="og:description" content="Femboy Finder" />
-                    <meta name="theme-color" content="#000000">
-                    <meta name="twitter:card" content="summary_large_image">
+        res.send(`
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <meta charset="UTF-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <meta name="description" content="Link: ${randomUrl}">
+                <meta name="keywords" content="FireStreaker2" />
+                <meta name=”copyright” content=”FireStreaker2”>
+                <meta property="og:title" content="Femboy Finder" />
+                <meta property="og:type" content="website" />
+                <meta property="og:url" content="https://github.com/FireStreaker2/FemboyFinder" />
+                <meta property="og:image" content="${randomUrl}" />
+                <meta property="og:description" content="Femboy Finder" />
+                <meta name="theme-color" content="#000000">
+                <meta name="twitter:card" content="summary_large_image">
                     
-                    <title>Femboy Found!</title>
-                </head>
+                <title>Femboy Found!</title>
+            </head>
 
-                <body>
-                    <style>
-                    * {
-                        margin: 0;
-                    }
+            <body>
+                <style>
+                * {
+                    margin: 0;
+                }
 
-                    img {
-                        width: 50%;
-                    }
-                    </style>
-                    <img src="${randomUrl}" />
-                </body>
-                </html>
-            `);
+                img {
+                    width: 50%;
+                }
+                </style>
+
+                <img src="${randomUrl}" />
+
+            </body>
+            </html>
+        `);
         })
         .catch(error => {
             console.error("Error:", error);
