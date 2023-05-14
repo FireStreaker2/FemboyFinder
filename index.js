@@ -11,7 +11,7 @@ app.get("/", (req, res) => {
 
 app.get("/:value", (req, res) => {
     const query = req.params.value;
-    const api = `https://betabooru.donmai.us/posts.json?tags=*${query}*`
+    const api = `https://betabooru.donmai.us/posts.json?tags=*${query}*`;
 
     axios.get(api)
         .then(response => {
@@ -32,7 +32,7 @@ app.get("/:value", (req, res) => {
         const index = Math.floor(Math.random() * originalUrls.length);
         const randomUrl = originalUrls[index];
 
-        // console.log(randomUrl)
+        // console.log(randomUrl) <- uncomment if you want to log stuff
             
         res.send(`
             <!DOCTYPE html>
@@ -53,6 +53,7 @@ app.get("/:value", (req, res) => {
                 <meta name="twitter:card" content="summary_large_image">
                     
                 <title>Femboy Found!</title>
+                <link rel="icon" type="image/x-icon" href="https://i.pinimg.com/736x/50/77/1f/50771f45b1c015cfbb8b0853ba7b8521.jpg" />
             </head>
 
             <body>
