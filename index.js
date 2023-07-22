@@ -1,8 +1,6 @@
 const axios = require("axios");
-
 const express = require("express");
 const app = express();
-
 const port = process.env.PORT || 3000;
 
 app.get("/", (req, res) => {
@@ -76,6 +74,42 @@ app.get("/:value", (req, res) => {
         .catch(error => {
             console.error("Error:", error);
             res.status(500).send("Internal Server Error: No Femboys Found");
+        });
+});
+
+// api route that does basically the same thing as above
+app.get("/api/:value", (req, res) => {
+    const query = req.params.value;
+    const api = `https://betabooru.donmai.us/posts.json?tags=*${query}*`;
+
+    axios.get(api)
+        .then(response => {
+            const data = response.data;
+
+            var originalUrls = [];
+            const sizes = [];
+            for (const object of data) {
+                const mediaAsset = object.media_asset;
+                const variants = mediaAsset.variants;
+
+                for (const variant of variants) {
+                    if (variant.type === "original") {
+                        originalUrls.push(variant.url);
+                        sizes.push(`${variant.width}x${variant.height}`);
+                    }
+                }
+            }
+
+        const index = Math.floor(Math.random() * originalUrls.length);
+        const randomUrl = originalUrls[index];
+        const dimensions = sizes[index];
+
+        // console.log(randomUrl) <- uncomment if you want to log stuff
+        res.json({ "Query": query, "URL": randomUrl, "Dimensions": dimensions, "Status": 200 });
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            res.json({ "Status": 500, "Message": "Internal Server Error: No Femboys Found" });
         });
 });
 
