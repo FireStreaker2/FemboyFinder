@@ -7,6 +7,11 @@ app.get("/", (req, res) => {
     res.send(`<script>window.location.href = "https://github.com/FireStreaker2/FemboyFinder"</script>`);
 });
 
+// route for femboyfinderbot
+app.get("/invite", (req, res) => {
+    res.send(`<script>window.location.href = "https://discord.com/oauth2/authorize?&client_id=1132490986736582736&scope=bot&permissions=274877908992"</script>`);
+});
+
 app.get("/:value", (req, res) => {
     const query = req.params.value;
     const api = `https://betabooru.donmai.us/posts.json?tags=*${query}*`;
