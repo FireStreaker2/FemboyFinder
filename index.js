@@ -1,7 +1,10 @@
 const axios = require("axios");
+const cors = require("cors");
 const express = require("express");
 const app = express();
 const port = process.env.PORT || 3000;
+
+app.use(cors());
 
 app.get("/", (req, res) => {
     res.send(`<script>window.location.href = "https://github.com/FireStreaker2/FemboyFinder"</script>`);
