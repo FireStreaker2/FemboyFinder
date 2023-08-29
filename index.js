@@ -10,10 +10,17 @@ app.get("/", (req, res) => {
     res.send(`<script>window.location.href = "https://github.com/FireStreaker2/FemboyFinder"</script>`);
 });
 
-// route for femboyfinderbot
+// -------- femboyfinderbot stuff - remove if you want ---------
 app.get("/invite", (req, res) => {
     res.send(`<script>window.location.href = "https://discord.com/oauth2/authorize?&client_id=1132490986736582736&scope=bot&permissions=274877908992"</script>`);
 });
+
+app.get("/privacypolicy", (req, res) => {
+    res.send(`<script>window.location.href = "https://github.com/FireStreaker2/FemboyFinderBot/blob/main/privacypolicy.md"</script>`);
+});
+
+
+// --------------------------------------------------------------
 
 app.get("/:value", (req, res) => {
     const query = req.params.value;
