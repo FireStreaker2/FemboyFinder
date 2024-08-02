@@ -1,29 +1,38 @@
 {
-  "name": "femboyfinder",
-  "version": "1.0.0",
-  "description": "Simple image querier using express and dabooru.",
-  "main": "index.js",
-  "scripts": {
-    "start": "node ."
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/FireStreaker2/FemboyFinder.git"
-  },
-  "keywords": [
-    "firestreaker2",
-    "express",
-    "femboy"
-  ],
-  "author": "FireStreaker2",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/FireStreaker2/FemboyFinder/issues"
-  },
-  "homepage": "https://github.com/FireStreaker2/FemboyFinder#readme",
-  "dependencies": {
-    "axios": "^1.4.0",
-    "cors": "^2.8.5",
-    "express": "^4.18.2"
-  }
+	"name": "femboyfinder",
+	"version": "1.0.1",
+	"description": "Simple image querier using express and dabooru.",
+	"module": "index.ts",
+	"type": "module",
+	"scripts": {
+		"start": "bun run index.ts"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/FireStreaker2/FemboyFinder.git"
+	},
+	"keywords": [
+		"firestreaker2",
+		"express",
+		"femboy"
+	],
+	"author": "FireStreaker2",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/FireStreaker2/FemboyFinder/issues"
+	},
+	"homepage": "https://github.com/FireStreaker2/FemboyFinder#readme",
+	"devDependencies": {
+		"@types/bun": "^1.1.6",
+		"@types/cors": "^2.8.17",
+		"@types/express": "^4.17.21"
+	},
+	"peerDependencies": {
+		"typescript": "^5.5.4"
+	},
+	"dependencies": {
+		"cors": "^2.8.5",
+		"express": "^4.19.2",
+		"node-fetch": "^3.3.2"
+	}
 }
