@@ -11,6 +11,20 @@ declare module "bun" {
 	}
 }
 
+interface Image {
+	type: string;
+	url: string;
+	width: number;
+	height: number;
+	file_ext: string;
+}
+
+interface DanbooruData {
+	media_asset: {
+		variants: Image[];
+	};
+}
+
 interface FemboyData {
 	error: boolean;
 	query: string;
@@ -60,12 +74,15 @@ app.get("/api/:value", async (req, res) => {
 	const api = `https://danbooru.donmai.us/posts.json?tags=*${query}*`;
 
 	const response = await fetch(api);
-	if (!response.ok) return res.status(response.status).json({ error: true });
+	if (!response.ok)
+		return res.status(response.status).json({ error: true, query });
 
-	const data = (await response.json()) as any;
+	const data = (await response.json()) as DanbooruData[];
+	if (data.length <= 0) return res.status(404).json({ error: true, query });
 
 	const originalUrls = [];
 	const sizes = [];
+
 	for (const object of data) {
 		const mediaAsset = object.media_asset;
 		const variants = mediaAsset.variants;
