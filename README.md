@@ -2,7 +2,7 @@
 
 # Info
 
-A simple image querier using express and danbooru, written with TypeScript.
+A simple image querier using bun, express, and gelbooru, written with TypeScript.
 
 This project was originally a way to find, as implied by the title, femboys. However, I also realized that since it queries by a tag name, it works for all things. Ex. you can search for not just femboys, but also other anime/manga characters.
 
@@ -14,7 +14,7 @@ Ex. https://femboyfinder.firestreaker2.gq/astolfo.
 
 # API
 
-FemboyFinder also provides an API for developers to use. At the core, it makes a GET request to the danbooru api, gets a random link from it, and then sends it to the client within a JSON response.
+FemboyFinder also provides an API for developers to use. At the core, it makes a GET request to the gelbooru api, gets a random link from it, and then sends it to the client within a JSON response.
 
 Base URL: `https://femboyfinder.firestreaker2.gq/api/${query}`
 
@@ -35,14 +35,27 @@ Response:
 
 # Selfhosting
 
-If you for some reason would like to selfhost this project, the steps are simple. All you need is to have Node.js and Git installed already.
+If you for some reason would like to selfhost this project, the steps are simple. All you need is to have Bun and Git installed already.
 
 ```bash
 $ git clone https://github.com/FireStreaker2/FemboyFinder.git
 $ cd FemboyFinder
-$ npm i
-$ npm start
+$ bun i
+$ bun start
 ```
+
+## Environment variables
+
+According to the official gelbooru api documentation:
+
+> We will occasionally require authentication to access our API and throttle access to our API. This is to mitigate abusive behavior.
+
+While it is not required to add your API key and user ID to the requests, it is recommended to do so in case there are suddenly rate limits put in place. If you would like to do so, then simply configure the following environment variables:
+
+- `API_KEY`
+- `USER_ID`
+
+These can be found from the [settings page](https://gelbooru.com/index.php?page=account&s=options) in gelbooru.
 
 # Contributing
 
@@ -50,7 +63,7 @@ If you would like to contribute, you can <a href="https://github.com/FireStreake
 
 # Credits
 
-<a href="https://danbooru.donmai.us/wiki_pages/help%3Aapi">Danbooru API</a>
+<a href="https://gelbooru.com/index.php?page=wiki&s=view&id=18780">Gelbooru API</a>
 
 # License
 

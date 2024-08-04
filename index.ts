@@ -8,21 +8,22 @@ const port = Bun.env.PORT || 3000;
 declare module "bun" {
 	interface Env {
 		PORT: string | number;
+		API_KEY: string;
+		USER_ID: string | number;
 	}
 }
 
-interface Image {
-	type: string;
-	url: string;
-	width: number;
-	height: number;
-	file_ext: string;
+interface Post {
+	id: number;
+	rating: string;
+	source: string;
+	tags: string;
+	title: string;
+	file_url: string;
 }
 
-interface DanbooruData {
-	media_asset: {
-		variants: Image[];
-	};
+interface GelbooruData {
+	post: Post[];
 }
 
 interface FemboyData {
@@ -53,7 +54,8 @@ app.get("/privacypolicy", (req, res) => {
 // --------------------------------------------------------------
 
 app.get("/:value", async (req, res) => {
-	const query = req.params.value;
+	let query = req.params.value;
+	if (query === "favicon.ico") query = "astolfo";
 
 	try {
 		const response = await fetch(
@@ -71,39 +73,27 @@ app.get("/:value", async (req, res) => {
 
 app.get("/api/:value", async (req, res) => {
 	const query = req.params.value;
-	const api = `https://danbooru.donmai.us/posts.json?tags=*${query}*`;
+	const api = `https://gelbooru.com/index.php?page=dapi&s=post&q=index&json=1&limit=100&tags=${query}&api_key=${Bun.env.API_KEY}&user_id=${Bun.env.USER_ID}`;
 
 	const response = await fetch(api);
 	if (!response.ok)
 		return res.status(response.status).json({ error: true, query });
 
-	const data = (await response.json()) as DanbooruData[];
-	if (data.length <= 0) return res.status(404).json({ error: true, query });
+	const data = (await response.json()) as GelbooruData;
+	if (!data.post || data.post.length <= 0)
+		return res.status(404).json({ error: true, query });
 
-	const originalUrls = [];
-	const sizes = [];
-
-	for (const object of data) {
-		const mediaAsset = object.media_asset;
-		const variants = mediaAsset.variants;
-
-		for (const variant of variants) {
-			if (variant.type === "original") {
-				originalUrls.push(variant.url);
-				sizes.push(`${variant.width}x${variant.height}`);
-			}
-		}
-	}
-
-	const index = Math.floor(Math.random() * originalUrls.length);
-	const randomUrl = originalUrls[index];
-	const dimensions = sizes[index];
+	const index = Math.floor(Math.random() * data.post.length);
+	const post = data.post[index];
 
 	res.json({
 		error: false,
 		query,
-		url: randomUrl,
-		dimensions,
+		url: post.file_url,
+		tags: post.tags,
+		source: post.source,
+		rating: post.rating,
+		title: post.title,
 	});
 });
 
