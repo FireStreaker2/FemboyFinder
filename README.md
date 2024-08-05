@@ -20,16 +20,19 @@ Base URL: `https://femboyfinder.firestreaker2.gq/api/${query}`
 
 ## Example
 
-URL: https://femboyfinder.firestreaker2.gq/api/felix_argyle
+URL: https://femboyfinder.firestreaker2.gq/api/mihate_hiura
 
 Response:
 
 ```json
 {
 	"error": false,
-	"query": "felix_argyle",
-	"url": "https://cdn.donmai.us/original/60/28/602891219d1153f991a0bb96c338a29b.jpg",
-	"dimensions": "1200x1350"
+	"query": "mihate_hiura",
+	"url": "https://img3.gelbooru.com/images/2a/2b/2a2b656f0813ab2c29a86c3c69d15852.png",
+	"tags": "1boy 2boys banjou_azusa black_hair blush crossdressing flower greyscale_with_colored_background hair_flower hair_ornament highres japanese_clothes kimono koisuru_(otome)_no_tsukurikata limited_palette looking_at_viewer male_focus midou_kenshirou mihate_hiura mixed-language_commentary multiple_boys pantyhose pink_eyes short_hair signature trap",
+	"source": "https://www.pixiv.net/artworks/103958957",
+	"rating": "general",
+	"title": ""
 }
 ```
 
