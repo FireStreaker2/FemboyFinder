@@ -1,11 +1,12 @@
 {
 	"name": "femboyfinder",
-	"version": "1.0.1",
-	"description": "Simple image querier using express and dabooru.",
+	"version": "1.0.2",
+	"description": "Simple image querier using express and gelbooru.",
 	"module": "index.ts",
 	"type": "module",
 	"scripts": {
-		"start": "bun run index.ts"
+		"start": "npm run build && node dist/index.js",
+		"build": "tsc"
 	},
 	"repository": {
 		"type": "git",
@@ -23,16 +24,15 @@
 	},
 	"homepage": "https://github.com/FireStreaker2/FemboyFinder#readme",
 	"devDependencies": {
-		"@types/bun": "^1.1.6",
 		"@types/cors": "^2.8.17",
-		"@types/express": "^4.17.21"
+		"@types/express": "^4.17.21",
+		"@types/node": "^22.1.0"
 	},
 	"peerDependencies": {
 		"typescript": "^5.5.4"
 	},
 	"dependencies": {
 		"cors": "^2.8.5",
-		"express": "^4.19.2",
-		"node-fetch": "^3.3.2"
+		"express": "^4.19.2"
 	}
 }

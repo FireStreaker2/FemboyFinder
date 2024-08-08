@@ -1,17 +1,8 @@
-import fetch from "node-fetch";
 import cors from "cors";
 import express from "express";
 
 const app = express();
-const port = Bun.env.PORT || 3000;
-
-declare module "bun" {
-	interface Env {
-		PORT: string | number;
-		API_KEY: string;
-		USER_ID: string | number;
-	}
-}
+const port = process.env.PORT || 3000;
 
 interface Post {
 	id: number;
@@ -64,7 +55,11 @@ app.get("/:value", async (req, res) => {
 		const data = (await response.json()) as FemboyData;
 		const image = await fetch(data.url);
 
-		image.body?.pipe(res);
+		const buffer = await image.arrayBuffer();
+		const mimeType = image.headers.get("content-type");
+
+		res.setHeader("Content-Type", mimeType || "image/jpeg");
+		res.send(Buffer.from(buffer));
 	} catch (error) {
 		console.error(error);
 		res.status(500).send(`An error occurred: ${error}`);
@@ -73,7 +68,7 @@ app.get("/:value", async (req, res) => {
 
 app.get("/api/:value", async (req, res) => {
 	const query = req.params.value;
-	const api = `https://gelbooru.com/index.php?page=dapi&s=post&q=index&json=1&limit=100&tags=${query}&api_key=${Bun.env.API_KEY}&user_id=${Bun.env.USER_ID}`;
+	const api = `https://gelbooru.com/index.php?page=dapi&s=post&q=index&json=1&limit=100&tags=${query}&api_key=${process.env.API_KEY}&user_id=${process.env.USER_ID}`;
 
 	const response = await fetch(api);
 	if (!response.ok)
@@ -92,8 +87,6 @@ app.get("/api/:value", async (req, res) => {
 		url: post.file_url,
 		tags: post.tags,
 		source: post.source,
-		rating: post.rating,
-		title: post.title,
 	});
 });
 

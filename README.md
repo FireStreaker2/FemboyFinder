@@ -2,7 +2,7 @@
 
 # Info
 
-A simple image querier using bun, express, and gelbooru, written with TypeScript.
+A simple image querier using express and gelbooru, written with TypeScript.
 
 This project was originally a way to find, as implied by the title, femboys. However, I also realized that since it queries by a tag name, it works for all things. Ex. you can search for not just femboys, but also other anime/manga characters.
 
@@ -30,21 +30,19 @@ Response:
 	"query": "mihate_hiura",
 	"url": "https://img3.gelbooru.com/images/2a/2b/2a2b656f0813ab2c29a86c3c69d15852.png",
 	"tags": "1boy 2boys banjou_azusa black_hair blush crossdressing flower greyscale_with_colored_background hair_flower hair_ornament highres japanese_clothes kimono koisuru_(otome)_no_tsukurikata limited_palette looking_at_viewer male_focus midou_kenshirou mihate_hiura mixed-language_commentary multiple_boys pantyhose pink_eyes short_hair signature trap",
-	"source": "https://www.pixiv.net/artworks/103958957",
-	"rating": "general",
-	"title": ""
+	"source": "https://www.pixiv.net/artworks/103958957"
 }
 ```
 
 # Selfhosting
 
-If you for some reason would like to selfhost this project, the steps are simple. All you need is to have Bun and Git installed already.
+If you for some reason would like to selfhost this project, the steps are simple. All you need is to have node and git installed already.
 
 ```bash
 $ git clone https://github.com/FireStreaker2/FemboyFinder.git
 $ cd FemboyFinder
-$ bun i
-$ bun start
+$ npm i
+$ npm start
 ```
 
 ## Environment variables
