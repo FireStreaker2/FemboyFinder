@@ -2,7 +2,7 @@
 
 # Info
 
-A simple image querier using express and gelbooru, written with TypeScript.
+A simple image querier using express and image boorus, written with TypeScript.
 
 This project was originally a way to find, as implied by the title, femboys. However, I also realized that since it queries by a tag name, it works for all things. Ex. you can search for not just femboys, but also other anime/manga characters.
 
@@ -45,26 +45,16 @@ $ npm i
 $ npm start
 ```
 
-## Environment variables
-
-According to the official gelbooru api documentation:
-
-> We will occasionally require authentication to access our API and throttle access to our API. This is to mitigate abusive behavior.
-
-While it is not required to add your API key and user ID to the requests, it is recommended to do so in case there are suddenly rate limits put in place. If you would like to do so, then simply configure the following environment variables:
-
-- `API_KEY`
-- `USER_ID`
-
-These can be found from the [settings page](https://gelbooru.com/index.php?page=account&s=options) in gelbooru.
-
 # Contributing
 
 If you would like to contribute, you can <a href="https://github.com/FireStreaker2/FemboyFinder/fork">fork the repo</a> and <a href="https://github.com/FireStreaker2/FemboyFinder/compare">make a PR</a>, or contact me via email @ `suggestions@firestreaker2.gq`
 
 # Credits
 
+<a href="https://yande.re/wiki/show?title=api_v2">yande.re API</a>  
 <a href="https://gelbooru.com/index.php?page=wiki&s=view&id=18780">Gelbooru API</a>
+
+> FemboyFinder versions prior to v1.0.3 were using Gelbooru. It has now been swapped to the yande.re as a result of [API changes](https://x.com/gelbooru/status/2023412352482480467)
 
 # License
 

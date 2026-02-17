@@ -14,8 +14,8 @@ interface Post {
 	file_url: string;
 }
 
-interface GelbooruData {
-	post: Post[];
+interface BooruData {
+	posts: Post[];
 }
 
 interface FemboyData {
@@ -34,13 +34,13 @@ app.get("/", (req, res) => {
 // -------- femboyfinderbot stuff - remove if you want ---------
 app.get("/invite", (req, res) => {
 	res.redirect(
-		"https://discord.com/oauth2/authorize?&client_id=1132490986736582736&scope=bot&permissions=274877908992"
+		"https://discord.com/oauth2/authorize?&client_id=1132490986736582736&scope=bot&permissions=274877908992",
 	);
 });
 
 app.get("/privacypolicy", (req, res) => {
 	res.redirect(
-		"https://github.com/FireStreaker2/FemboyFinderBot/blob/main/privacypolicy.md"
+		"https://github.com/FireStreaker2/FemboyFinderBot/blob/main/privacypolicy.md",
 	);
 });
 // --------------------------------------------------------------
@@ -51,7 +51,7 @@ app.get("/:value", async (req, res) => {
 
 	try {
 		const response = await fetch(
-			`${req.protocol}://${req.get("host")}/api/${query}`
+			`${req.protocol}://${req.get("host")}/api/${query}`,
 		);
 		const data = (await response.json()) as FemboyData;
 		const image = await fetch(data.url);
@@ -69,18 +69,20 @@ app.get("/:value", async (req, res) => {
 
 app.get("/api/:value", async (req, res) => {
 	const query = req.params.value;
-	const api = `https://gelbooru.com/index.php?page=dapi&s=post&q=index&json=1&limit=100&tags=${query}&api_key=${process.env.API_KEY}&user_id=${process.env.USER_ID}`;
+	const api = `https://yande.re/post.json?api_version=2&tags=${query}`;
+	console.log(api);
 
 	const response = await fetch(api);
+
 	if (!response.ok)
 		return res.status(response.status).json({ error: true, query });
 
-	const data = (await response.json()) as GelbooruData;
-	if (!data.post || data.post.length <= 0)
+	const data = (await response.json()) as BooruData;
+	if (!data.posts || data.posts.length <= 0)
 		return res.status(404).json({ error: true, query });
 
-	const index = Math.floor(Math.random() * data.post.length);
-	const post = data.post[index];
+	const index = Math.floor(Math.random() * data.posts.length);
+	const post = data.posts[index];
 
 	res.json({
 		error: false,
