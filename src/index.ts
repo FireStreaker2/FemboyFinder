@@ -70,7 +70,6 @@ app.get("/:value", async (req, res) => {
 app.get("/api/:value", async (req, res) => {
 	const query = req.params.value;
 	const api = `https://yande.re/post.json?api_version=2&tags=${query}`;
-	console.log(api);
 
 	const response = await fetch(api);
 

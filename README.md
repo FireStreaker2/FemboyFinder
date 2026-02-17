@@ -34,6 +34,10 @@ Response:
 }
 ```
 
+## Tag Searching
+
+Tags are the basis of searching via the API, used commonly on many image booru sites. For specifically yande.re's, please refer to their [documentation](https://yande.re/help/posts).
+
 # Selfhosting
 
 If you for some reason would like to selfhost this project, the steps are simple. All you need is to have node and git installed already.
@@ -44,6 +48,8 @@ $ cd FemboyFinder
 $ npm i
 $ npm start
 ```
+
+> If you are selfhosting a version of FemboyFinder prior to v1.0.3, you may need to [set some extra environment variables](https://github.com/FireStreaker2/FemboyFinder/tree/ea728399d81a5c5a5d5b9bc23a01ea1efbc2ed60?tab=readme-ov-file#environment-variables)
 
 # Contributing
 
