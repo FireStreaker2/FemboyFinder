@@ -8,19 +8,19 @@ This project was originally a way to find, as implied by the title, femboys. How
 
 # Usage
 
-You can get started by going to `https://femboyfinder.firestreaker2.gq/${query}`, where `${query}` is your input. This will return either an image corresponding with the input, or an error message with a status of 500.
+You can get started by going to `https://femboyfinder.firestreaker2.dev/${query}`, where `${query}` is your input. This will return either an image corresponding with the input, or an error message with a status of 500.
 
-Ex. https://femboyfinder.firestreaker2.gq/astolfo.
+Ex. https://femboyfinder.firestreaker2.dev/astolfo.
 
 # API
 
 FemboyFinder also provides an API for developers to use. At the core, it makes a GET request to the gelbooru api, gets a random link from it, and then sends it to the client within a JSON response.
 
-Base URL: `https://femboyfinder.firestreaker2.gq/api/${query}`
+Base URL: `https://femboyfinder.firestreaker2.dev/api/${query}`
 
 ## Example
 
-URL: https://femboyfinder.firestreaker2.gq/api/mihate_hiura
+URL: https://femboyfinder.firestreaker2.dev/api/mihate_hiura
 
 Response:
 
@@ -53,7 +53,7 @@ $ npm start
 
 # Contributing
 
-If you would like to contribute, you can <a href="https://github.com/FireStreaker2/FemboyFinder/fork">fork the repo</a> and <a href="https://github.com/FireStreaker2/FemboyFinder/compare">make a PR</a>, or contact me via email @ `suggestions@firestreaker2.gq`
+If you would like to contribute, you can <a href="https://github.com/FireStreaker2/FemboyFinder/fork">fork the repo</a> and <a href="https://github.com/FireStreaker2/FemboyFinder/compare">make a PR</a>, or contact me via email @ `suggestions@firestreaker2.dev`
 
 # Credits
 

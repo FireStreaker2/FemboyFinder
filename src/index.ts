@@ -1,29 +1,10 @@
 import cors from "cors";
 import express from "express";
+import type { GelbooruData, FemboyData, ProviderSource } from "./types";
 import "dotenv/config";
 
 const app = express();
 const port = process.env.PORT || 3000;
-
-interface Post {
-	id: number;
-	rating: string;
-	source: string;
-	tags: string;
-	title: string;
-	file_url: string;
-}
-
-interface BooruData {
-	posts: Post[];
-}
-
-interface FemboyData {
-	error: boolean;
-	query: string;
-	url: string;
-	dimensions: string;
-}
 
 app.use(cors());
 
@@ -54,7 +35,11 @@ app.get("/:value", async (req, res) => {
 			`${req.protocol}://${req.get("host")}/api/${query}`,
 		);
 		const data = (await response.json()) as FemboyData;
-		const image = await fetch(data.url);
+		const image = await fetch(data.url.gelbooru, {
+			headers: {
+				Referer: "https://gelbooru.com/",
+			},
+		});
 
 		const buffer = await image.arrayBuffer();
 		const mimeType = image.headers.get("content-type");
@@ -69,27 +54,57 @@ app.get("/:value", async (req, res) => {
 
 app.get("/api/:value", async (req, res) => {
 	const query = req.params.value;
-	const api = `https://yande.re/post.json?api_version=2&tags=${query}`;
+	const api = `https://gelbooru.com/index.php?page=dapi&s=post&q=index&json=1&limit=100&tags=${query}&api_key=${process.env.API_KEY}&user_id=${process.env.USER_ID}`;
 
 	const response = await fetch(api);
+	if (!response.ok) {
+		return res.status(response.status).json({
+			error: true,
+			error_message: `Failed to fetch data from Gelbooru API. Status: ${response.status}`,
+			query,
+			url: { danbooru: "", gelbooru: "" },
+			tags: "",
+			source: "",
+			dimensions: "",
+		} satisfies FemboyData);
+	}
 
-	if (!response.ok)
-		return res.status(response.status).json({ error: true, query });
+	const data = (await response.json()) as GelbooruData;
+	if (!data.post || data.post.length === 0) {
+		return res.status(404).json({
+			error: true,
+			error_message: "No posts found for this tag.",
+			query,
+			url: {
+				danbooru: "",
+				gelbooru: "",
+			},
+			tags: "",
+			source: "",
+			dimensions: "",
+		} satisfies FemboyData);
+	}
 
-	const data = (await response.json()) as BooruData;
-	if (!data.posts || data.posts.length <= 0)
-		return res.status(404).json({ error: true, query });
+	const index = Math.floor(Math.random() * data.post.length);
+	const post = data.post[index];
 
-	const index = Math.floor(Math.random() * data.posts.length);
-	const post = data.posts[index];
+	let danbooru: ProviderSource = null;
+
+	if (post.owner == "danbooru")
+		danbooru = `https://cdn.donmai.us/original/${post.md5.slice(0, 2)}/${post.md5.slice(2, 4)}/${post.md5}.${post.file_url.split(".").pop()}`;
 
 	res.json({
 		error: false,
+		error_message: null,
 		query,
-		url: post.file_url,
+		url: {
+			gelbooru: post.file_url,
+			danbooru: danbooru,
+		},
 		tags: post.tags,
 		source: post.source,
-	});
+		dimensions: `${post.width}x${post.height}`,
+	} satisfies FemboyData);
 });
 
 app.listen(port, () => {
