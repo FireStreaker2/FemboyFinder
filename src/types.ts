@@ -1,3 +1,4 @@
+export type Provider = string | null;
 export type ProviderSource = string | null;
 
 export interface GelbooruPost {

@@ -1,6 +1,12 @@
 import cors from "cors";
 import express from "express";
-import type { GelbooruData, FemboyData, ProviderSource } from "./types";
+import type {
+	GelbooruData,
+	FemboyData,
+	ProviderSource,
+	Provider,
+} from "./types";
+import { getDanbooruUrl } from "./utils.js";
 import "dotenv/config";
 
 const app = express();
@@ -54,6 +60,7 @@ app.get("/:value", async (req, res) => {
 
 app.get("/api/:value", async (req, res) => {
 	const query = req.params.value;
+	const provider = req.query.provider as Provider;
 	const api = `https://gelbooru.com/index.php?page=dapi&s=post&q=index&json=1&limit=100&tags=${query}&api_key=${process.env.API_KEY}&user_id=${process.env.USER_ID}`;
 
 	const response = await fetch(api);
@@ -85,13 +92,32 @@ app.get("/api/:value", async (req, res) => {
 		} satisfies FemboyData);
 	}
 
-	const index = Math.floor(Math.random() * data.post.length);
-	const post = data.post[index];
+	// TODO: filter for other providers when supported
+	let posts = data.post;
+	if (provider === "danbooru")
+		posts = posts.filter((post) => post.owner === "danbooru");
+
+	if (posts.length === 0) {
+		return res.status(404).json({
+			error: true,
+			error_message: `No posts found for provider: ${provider}`,
+			query,
+			url: {
+				danbooru: "",
+				gelbooru: "",
+			},
+			tags: "",
+			source: "",
+			dimensions: "",
+		} satisfies FemboyData);
+	}
+
+	const index = Math.floor(Math.random() * posts.length);
+	const post = posts[index];
 
 	let danbooru: ProviderSource = null;
 
-	if (post.owner == "danbooru")
-		danbooru = `https://cdn.donmai.us/original/${post.md5.slice(0, 2)}/${post.md5.slice(2, 4)}/${post.md5}.${post.file_url.split(".").pop()}`;
+	if (post.owner == "danbooru") danbooru = getDanbooruUrl(post);
 
 	res.json({
 		error: false,
